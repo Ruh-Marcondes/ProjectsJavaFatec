@@ -9,10 +9,6 @@ public class Carta {
         this.naipe = naipe;
         this.val = val;
     }
-    
-    public Carta() {
-        // Construtor padrão
-    }
 
     public Naipe getNaipe() {
         return this.naipe;
