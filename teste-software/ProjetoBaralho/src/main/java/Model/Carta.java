@@ -33,7 +33,7 @@ public class Carta {
      // Sobrescrevendo o método toString()
      @Override
      public String toString() {
-         return  val + " de "+ naipe +"\n\n";
+         return  val + " de "+ naipe;
      }
     
 }

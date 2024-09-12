@@ -9,36 +9,37 @@ import java.util.Random;
 
 public class Baralho {
 
-   private ArrayList<Carta> cartas;
+   private List<Carta> cartas;
 
    public Baralho() {
     //Construtor que intancia o array list e chama o metodo montar que cria o baralho;
       this.cartas = new ArrayList<Carta>();
-      montar();
-      embaralhar();
+      montar(); //Cria o baralho com todas as cartas e nipes
    }
+
+
    
-   private void embaralhar() {
+   public void embaralhar() {
       //Embaralhar a lista de cartas
       /*Duas formas 1-> usando o Collections.shuffle 
-       Collections.shuffle(cartas,new Random());
-       * 
        * 2-> Fazendo um embaralhamento na "mão";
       */
-      Carta aux; //Variavel aux de Carta
-      int auxI, auxJ; // Variavel auxiliar int
-        Random ram = new Random();
-        for(int i = 0; i < cartas.size(); i++){
-            auxI = ram.nextInt(cartas.size()); // Atribui um número randomico a auxI
-            auxJ = ram.nextInt(cartas.size());
+    //   Carta aux; //Variavel aux de Carta
+    //   int auxI, auxJ; // Variavel auxiliar int
+    //     Random ram = new Random();
+    //     for(int i = 0; i < cartas.size(); i++){
+    //         auxI = ram.nextInt(cartas.size()); // Atribui um número randomico a auxI
+    //         auxJ = ram.nextInt(cartas.size());
             
-            aux = cartas.get(auxI); // aux salva os dados da carta na posição auxI
+    //         aux = cartas.get(auxI); // aux salva os dados da carta na posição auxI
 
-            //Trocam as cartas de lugar
-            cartas.set(auxI, cartas.get(auxJ)); 
-            cartas.set(auxJ, aux); 
+    //         //Trocam as cartas de lugar
+    //         cartas.set(auxI, cartas.get(auxJ)); 
+    //         cartas.set(auxJ, aux); 
 
-        }
+    //     }
+
+        Collections.shuffle(cartas);
    }
 
   private void montar() {
@@ -52,10 +53,14 @@ public class Baralho {
     }
 }
 
-public void exibir() {
-    for (Carta carta : cartas) {
-        System.out.println(carta.toString()); // Imprime a representação da carta
-    }
+// public void exibir() {
+//     for (Carta carta : cartas) {
+//         System.out.println(carta.toString()); // Imprime a representação da carta
+//     }
+// } -> Não é uma boa pratica
+
+public List<Carta> getBaralho(){
+    return cartas;
 }
    
 }
