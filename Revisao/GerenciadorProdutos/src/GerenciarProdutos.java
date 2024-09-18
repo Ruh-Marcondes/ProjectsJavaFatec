@@ -28,7 +28,7 @@ public class GerenciarProdutos {
                 case 1:
                     String nome;
                     double preco;
-                    String disponibilidade;
+                   // boolean disponibilidade;
                     LocalDate dataCastro;
                     System.out.println("============Cadastrando novo produto======");
                     System.out.println("Digite o nome do produto");
@@ -37,8 +37,9 @@ public class GerenciarProdutos {
                     System.out.println("\n Digite o preco do produto");
                     preco = Double.parseDouble(gp.sc.nextLine());
 
-                    System.out.println("Qual a disponibilidade do produto: ");
-                    disponibilidade = gp.sc.nextLine().toUpperCase();
+                    System.out.println("Qual a disponibilidade do produto: Digite true para desponivel e false para indisponivel:  ");
+                   // disponibilidade = gp.sc.boolean.parseBoll(nextLine());
+                    
 
                     dataCastro = LocalDate.now();
 
@@ -57,8 +58,7 @@ public class GerenciarProdutos {
 
     // Metodos
     private void execCadastrar(String nome, double preco, String disponibilidade, LocalDate dataCastro) {
-        Disponibilidade dis =  new Disponibilidade();
-        dis.valueOf(disponibilidade);
+      
 
         Produto produto = new Produto(nome, preco, dis, dataCastro);
         produtos.add(produto);
