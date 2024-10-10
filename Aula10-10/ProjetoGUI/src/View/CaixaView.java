@@ -27,6 +27,7 @@ public class CaixaView extends JFrame implements WindowListener, ActionListener 
         dTextField = new Dimension(150, 20);
         dButton = new Dimension(95,20);
         dTextArea = new Dimension(300,140);
+
         //definição da janela
         setSize(dFrame);
         setTitle("Controle de Caixa");
