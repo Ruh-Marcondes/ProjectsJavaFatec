@@ -4,11 +4,12 @@ import Model.Caixa;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class CaixaView extends JFrame implements WindowListener {
-
+public class CaixaView extends JFrame implements WindowListener, ActionListener {
     private Caixa caixa;
     private Dimension dLabel, dTextField, dFrame, dTextArea, dButton;
     private Label lblValor, lblSaldo;
@@ -18,7 +19,7 @@ public class CaixaView extends JFrame implements WindowListener {
 
     //método contrutor - construir a janela
     public CaixaView() {
-        //intanciando o objeto caixa
+        //Instanciando o objeto caixa
         caixa = new Caixa();
         //Definir a aparencia da janela
         dFrame = new Dimension(350,400);
@@ -57,28 +58,32 @@ public class CaixaView extends JFrame implements WindowListener {
         cmdEntrada = new Button("Entrada");
         cmdEntrada.setSize(dButton);
         cmdEntrada.setLocation(25, 150);
+        cmdEntrada.addActionListener(this); //comportamento de acao para o botão
         add(cmdEntrada);
 
         cmdConsulta = new Button("Consulta");
         cmdConsulta.setSize(dButton);
         cmdConsulta.setLocation(25, 185);
+        cmdConsulta.addActionListener(this);
         add(cmdConsulta);
 
         cmdRetirada = new Button("Retirada");
         cmdRetirada.setSize(dButton);
         cmdRetirada.setLocation(225, 150);
+        cmdRetirada.addActionListener(this);
         add(cmdRetirada);
 
         cmdSair = new Button("Sair");
         cmdSair.setSize(dButton);
         cmdSair.setLocation(225, 185);
+        cmdSair.addActionListener(this);
         add(cmdSair);
 
         txtMsg = new TextArea();
         txtMsg.setSize(dTextArea);
         txtMsg.setLocation(25, 220);
         add(txtMsg);
-
+        //adicionar comportamento listeners
         addWindowListener(this);
     }
 
@@ -89,7 +94,10 @@ public class CaixaView extends JFrame implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-        JOptionPane.showMessageDialog(null,"Encerrando com cuidado!");
+        JOptionPane.showMessageDialog(
+                null,
+                "Fechando com cuidado!"
+        );
     }
 
     @Override
@@ -115,5 +123,42 @@ public class CaixaView extends JFrame implements WindowListener {
     @Override
     public void windowDeactivated(WindowEvent e) {
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == cmdSair){
+            System.exit(0);
+        }
+        if(e.getSource() == cmdConsulta){
+            txtSaldo.setText(Double.toString(caixa.getSaldo()));
+            txtMsg.append("Consulta de saldo realizada com sucesso: R$ " + txtValor.getText() + "\n");
+            txtValor.setText(null);
+            txtValor.requestFocus();
+            return;
+        }
+        if(e.getSource() == cmdEntrada){
+            double valor = Double.parseDouble(txtValor.getText());
+            if(caixa.depositar(valor)){
+                txtMsg.append("Depositado realizado com sucesso: R$ " + valor + "\n");
+            }else{
+                txtMsg.append("Valor inválido para depósito. Deve ser positivo \n");
+            }
+            txtValor.setText(null);
+            txtValor.requestFocus(); //coloca o foco no controle
+            txtSaldo.setText(null);
+            return;
+        }
+        if(e.getSource() == cmdRetirada){
+            double valor = Double.parseDouble(txtValor.getText());
+            if(caixa.sacar(valor)){
+                txtMsg.append("Saque efetuado com sucesso: R$ " + valor + "\n");
+            }else{
+                txtMsg.append("Sem saldo suficiente para o saque \n");
+            }
+            txtValor.setText(null);
+            txtValor.requestFocus();
+            return;
+        }
     }
 }
