@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public class CaixaView extends JFrame implements WindowListener {
+
     private Caixa caixa;
     private Dimension dLabel, dTextField, dFrame, dTextArea, dButton;
     private Label lblValor, lblSaldo;
@@ -17,6 +18,8 @@ public class CaixaView extends JFrame implements WindowListener {
 
     //método contrutor - construir a janela
     public CaixaView() {
+        //intanciando o objeto caixa
+        caixa = new Caixa();
         //Definir a aparencia da janela
         dFrame = new Dimension(350,400);
         dLabel = new Dimension(40,20);
@@ -75,6 +78,8 @@ public class CaixaView extends JFrame implements WindowListener {
         txtMsg.setSize(dTextArea);
         txtMsg.setLocation(25, 220);
         add(txtMsg);
+
+        addWindowListener(this);
     }
 
     @Override
